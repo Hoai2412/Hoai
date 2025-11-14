@@ -1,0 +1,192 @@
+﻿<UserControl x:Class="QuanLySinhVien.QuanLyLopHocPhan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="900"
+             Background="#F9FAFB">
+
+    <!-- ✅ ScrollViewer để cuộn toàn bộ giao diện -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  Background="#F9FAFB">
+
+        <Grid Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ===== HEADER ===== -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <materialDesign:PackIcon Kind="BookMultipleOutline"
+                                         Foreground="#1E3A8A"
+                                         Width="30" Height="30"
+                                         Margin="0,0,10,0"/>
+                <TextBlock Text="QUẢN LÝ LỚP HỌC PHẦN"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="#1E3A8A"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- ===== KHUNG CHÍNH ===== -->
+            <Border Grid.Row="1"
+                    Background="White"
+                    CornerRadius="10"
+                    Padding="25"
+                    BorderBrush="#E2E8F0"
+                    BorderThickness="1"
+                    VerticalAlignment="Top">
+
+                <StackPanel>
+
+                    <!-- TÌM KIẾM -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                        <TextBox x:Name="txtSearch"
+                                 Width="300"
+                                 Height="34"
+                                 materialDesign:HintAssist.Hint="Tìm kiếm lớp học phần..."
+                                 VerticalContentAlignment="Center"
+                                 Padding="10,0"
+                                 FontSize="14"
+                                 BorderBrush="#CBD5E1"
+                                 BorderThickness="1"
+                                 Background="#F8FAFC"
+                                 Margin="0,0,10,0"
+                                 TextChanged="txtSearch_TextChanged_1"/>
+                        <Button Content="Tìm"
+                                Width="90"
+                                Height="34"
+                                Background="#1E3A8A"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                BorderThickness="0"
+                                Click="Button_Click"/>
+                    </StackPanel>
+
+                    <!-- FORM NHẬP THÔNG TIN -->
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Mã lớp -->
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,10,10">
+                            <TextBlock Text="Mã lớp học phần:" FontWeight="Bold"/>
+                            <TextBox x:Name="txtMaLop" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     TextChanged="txtMaLop_TextChanged"/>
+                        </StackPanel>
+
+                        <!-- Tên lớp -->
+                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
+                            <TextBlock Text="Tên lớp học phần:" FontWeight="Bold"/>
+                            <TextBox x:Name="txtTenLop" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     TextChanged="txtTenLop_TextChanged"/>
+                        </StackPanel>
+
+                        <!-- Giảng viên -->
+                        <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,10">
+                            <TextBlock Text="Giảng viên:" FontWeight="Bold"/>
+                            <TextBox x:Name="txtGiangVien" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     TextChanged="txtGiangVien_TextChanged"/>
+                        </StackPanel>
+
+                        <!-- Phòng học -->
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,0,0,10">
+                            <TextBlock Text="Phòng học:" FontWeight="Bold"/>
+                            <TextBox x:Name="txtPhongHoc" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     TextChanged="txtPhongHoc_TextChanged"/>
+                        </StackPanel>
+
+                        <!-- Lịch học -->
+                        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,10,10">
+                            <TextBlock Text="Lịch học (VD: Thứ 2, 4, 6 - Ca 1):" FontWeight="Bold"/>
+                            <TextBox x:Name="txtLichHoc" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     TextChanged="txtLichHoc_TextChanged"/>
+                        </StackPanel>
+
+                        <!-- Sĩ số tối đa -->
+                        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10,0,0,10">
+                            <TextBlock Text="Sĩ số tối đa:" FontWeight="Bold"/>
+                            <TextBox x:Name="txtSiSoToiDa" Height="30" Padding="5"
+                                     BorderBrush="#CBD5E1" BorderThickness="1"
+                                     Text="50"
+                                     TextChanged="txtSiSoToiDa_TextChanged"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- DANH SÁCH LỚP -->
+                    <DataGrid x:Name="dgLopHocPhan"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              SelectionMode="Single"
+                              AlternatingRowBackground="#F1F5F9"
+                              RowHeight="38"
+                              GridLinesVisibility="Horizontal"
+                              BorderBrush="#E2E8F0"
+                              BorderThickness="1"
+                              Background="White"
+                              Margin="0,0,0,15"
+                              FontSize="14">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã lớp" Binding="{Binding MaLop}" Width="*"/>
+                            <DataGridTextColumn Header="Tên lớp học phần" Binding="{Binding TenLop}" Width="2*"/>
+                            <DataGridTextColumn Header="Giảng viên" Binding="{Binding GiangVien}" Width="*"/>
+                            <DataGridTextColumn Header="Phòng học" Binding="{Binding PhongHoc}" Width="*"/>
+                            <DataGridTextColumn Header="Lịch học" Binding="{Binding LichHoc}" Width="1.5*"/>
+                            <DataGridTextColumn Header="Sĩ số tối đa" Binding="{Binding SiSoToiDa}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- NÚT CHỨC NĂNG -->
+                    <UniformGrid Columns="3" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button Content="Thêm mới"
+                                Width="150"
+                                Height="38"
+                                Background="#2563EB"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Margin="8,0"
+                                Click="BtnThem_Click"/>
+
+                        <Button Content="Sửa"
+                                Width="150"
+                                Height="38"
+                                Background="#F59E0B"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Margin="8,0"
+                                Click="BtnSua_Click"/>
+
+                        <Button Content="Xóa"
+                                Width="150"
+                                Height="38"
+                                Background="#DC2626"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                BorderThickness="0"
+                                Margin="8,0"
+                                Click="BtnXoa_Click"/>
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
